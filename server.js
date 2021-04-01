@@ -15,7 +15,8 @@ const port = 3000
 app.get('/', async (req, res) => {
     await sequelize.authenticate();
     const [results, metadata] = await sequelize.query("SELECT * FROM HR.SALARYS");
-    res.json({ results, metadata })
+    const ip = req.headers['x-forwarded-for'];
+    res.json({ ip, results, metadata })
 })
 
 app.listen(port, () => {
